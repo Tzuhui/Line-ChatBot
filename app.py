@@ -22,8 +22,8 @@ from oauth2client.service_account import ServiceAccountCredentials as SAC
 app = Flask(__name__)
 
 
-line_bot_api = LineBotApi('grAy28hMhuIg0OjJKwgDN2Tc5QejSD5okD/xFv2sHbeAOlRmx57coV2fw/fGj8Emk7vy3OUIL33Q5wymN5ZEx78MrzNsYjyTKw0BDeHOxw4p9r39e/XW1nU4F45u007aS+VGxUsZPCTtPf350O13ZQdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('e6134a76f878184a9b6df80f6d2a9db3')
+line_bot_api = LineBotApi('Your_Line_Bot_Channel_access_token ')
+handler = WebhookHandler('Your_Line_Bot_Channel secret ')
 
 #電影
 def movie():
@@ -103,42 +103,19 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,StickerSendMessage(package_id=1, sticker_id=2))
     elif event.message.text == "圖片":
         print("圖片get")
-        line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='https://agirls.aotter.net/media/20f2a623-d960-4903-9e6c-1d809586785a.jpg', preview_image_url='https://agirls.aotter.net/media/20f2a623-d960-4903-9e6c-1d809586785a.jpg'))
+        line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='圖片網址', preview_image_url='圖片網址'))
     elif event.message.text == "影片":
-        line_bot_api.reply_message(event.reply_token,VideoSendMessage(original_content_url='https://www.youtube.com/watch?v=aUiMaz4BNKw', preview_image_url='https://i.ytimg.com/vi/GNnM-LSa5OQ/maxresdefault.jpg'))
+        line_bot_api.reply_message(event.reply_token,VideoSendMessage(original_content_url='影片網址', preview_image_url='預覽圖片網址'))
     elif event.message.text == "音訊":
-        line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='https://www.youtube.com/watch?v=aUiMaz4BNKw', duration=100000))
+        line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='音訊網址', duration=100000))
     elif event.message.text == "位置":
         print("位置get")
         line_bot_api.reply_message(event.reply_token,LocationSendMessage(title='my location', address='Tainan', latitude=22.994821, longitude=120.196452))
-    elif event.message.text == "位置2":
-        imagemap_message = ImagemapSendMessage(
-                        base_url='https://test.mitseng.com/image/unnamed',
-                        alt_text='this is an imagemap',
-                        base_size=BaseSize(height=1040, width=1040),
-                        actions=[
-                            URIImagemapAction(
-                                link_uri='https://test.mitseng.com/',
-                                area=ImagemapArea(
-                                    x=0, y=0, width=520, height=520
-                                )
-                            ),
-                            MessageImagemapAction(
-                                text='hello',
-                                area=ImagemapArea(
-                                    x=520, y=0, width=520, height=520
-                                )
-                            )
-                        ]
-                    )
-        line_bot_api.reply_message(event.reply_token,imagemap_message)
     if event.message.text == "紀錄":
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
         pass
-        GDriveJSON = 'LineBot.json'
-        GSpreadSheet = 'BotTest'
-       # print('將資料記錄在試算表' ,GSpreadSheet , '每' ,WaitSecond ,'秒')
-        print('按下 Ctrl-C中斷執行')
+        GDriveJSON = 'Json檔名.json'
+        GSpreadSheet = 'Google試算表名稱'
         while True:
             try:
                 scope = ['https://spreadsheets.google.com/feeds']
@@ -163,32 +140,13 @@ def handle_message(event):
             g.append(a[i])
             h.append(a[i+1])
             n.append(a[i+2])
-        print("g")
-        print(g)
-        print(h)
-        print(n)
-        # for y in range(0,8):
-        #     #print(y)
-        #     d=c[y][0]
-        #     g.append(d)
-        # for y in range(0,8):
-        #     e=c[y][1]
-        #     h.append(e)
-        # for y in range(0,8):
-        #     f=c[y][2]
-        #     n.append(f)
-        #     print(f)
         m=[] 
         x=['title','link','link2']
         m.append(g)
         m.append(h)
         m.append(n)
         dictionary = dict(zip(x,m))
-        print("dictionary")
-        print(dictionary)  
         p=random.sample(range(12),3)
-        print(p)
-        print(type(p))
         Image_Carousel = TemplateSendMessage(
         alt_text='目錄 template',
         template=ImageCarouselTemplate(
@@ -223,7 +181,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='Template-樣板介紹',
             text='Template分為四種，也就是以下四種：',
-            thumbnail_image_url='https://i.ytimg.com/vi/GNnM-LSa5OQ/maxresdefault.jpg',
+            thumbnail_image_url='圖片網址',
             actions=[
                 MessageTemplateAction(
                     label='Buttons Template',
@@ -252,7 +210,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='這是ButtonsTemplate',
             text='ButtonsTemplate可以傳送text,uri',
-            thumbnail_image_url='https://i.ytimg.com/vi/GNnM-LSa5OQ/maxresdefault.jpg',
+            thumbnail_image_url='圖片網址',
             actions=[
                 MessageTemplateAction(
                     label='ButtonsTemplate',
@@ -260,7 +218,7 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='VIDEO1',
-                    uri='https://www.youtube.com/watch?v=ty1NTsWOm0A'
+                    uri='網址'
                 ),
                 PostbackTemplateAction(
                 label='postback',
@@ -278,7 +236,7 @@ def handle_message(event):
         template=CarouselTemplate(
         columns=[
             CarouselColumn(
-                thumbnail_image_url='https://3.bp.blogspot.com/-aRzn2Zvku0s/V2z8_bpnn3I/AAAAAAAAeFg/aCwg2FzpEmkRvFUtn0yWI_ATDZa2myzjACLcB/s1600/LINE%2B%25E7%2586%258A%25E5%25A4%25A7%25E8%25BE%25B2%25E5%25A0%25B4.jpg',
+                thumbnail_image_url='網址',
                 title='this is menu1',
                 text='description1',
                 actions=[
@@ -293,12 +251,12 @@ def handle_message(event):
                     ),
                     URITemplateAction(
                         label='uri1',
-                        uri='http://example.com/1'
+                        uri='網址'
                     )
                 ]
             ),
             CarouselColumn(
-                thumbnail_image_url='https://prtimes.jp/i/1594/363/resize/d1594-363-949581-1.jpg',
+                thumbnail_image_url='網址',
                 title='this is menu2',
                 text='description2',
                 actions=[
@@ -313,7 +271,7 @@ def handle_message(event):
                     ),
                     URITemplateAction(
                         label='連結2',
-                        uri='http://example.com/2'
+                        uri='網址'
                     )
                 ]
             )
@@ -348,7 +306,7 @@ def handle_message(event):
         template=ImageCarouselTemplate(
         columns=[
             ImageCarouselColumn(
-                image_url='https://prtimes.jp/i/1594/363/resize/d1594-363-949581-1.jpg',
+                image_url='網址',
                 action=PostbackTemplateAction(
                     label='postback1',
                     text='postback text1',
@@ -356,7 +314,7 @@ def handle_message(event):
                 )
             ),
             ImageCarouselColumn(
-                image_url='https://3.bp.blogspot.com/-aRzn2Zvku0s/V2z8_bpnn3I/AAAAAAAAeFg/aCwg2FzpEmkRvFUtn0yWI_ATDZa2myzjACLcB/s1600/LINE%2B%25E7%2586%258A%25E5%25A4%25A7%25E8%25BE%25B2%25E5%25A0%25B4.jpg',
+                image_url='網址',
                 action=PostbackTemplateAction(
                     label='postback2',
                     text='postback text2',
